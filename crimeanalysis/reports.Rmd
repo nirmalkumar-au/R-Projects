@@ -1,0 +1,34 @@
+---
+title: "Report on murders"
+author: "Nirmal Kumar"
+date: "`r format(Sys.Date())`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Report of murders based on FBI data
+
+Used the following libraries
+```{r loading_library, message=FALSE}
+library(tidyverse)
+```
+
+and loading the wrangled data
+```{r loading_data, message=FALSE}
+load("rda/murders.rda")
+```
+
+## murder rate by state
+
+```{r murder_rate_by_state, echo=FALSE}
+murders %>% mutate(abb = reorder(abb, rate)) %>%
+  ggplot(aes(abb, rate)) +
+  geom_bar(width = 0.5, stat = "identity", color ="black")+
+  coord_flip()
+```
+
